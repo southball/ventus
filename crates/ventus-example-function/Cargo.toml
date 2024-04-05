@@ -1,0 +1,9 @@
+[package]
+name = "ventus-example-function"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rmp-serde.workspace = true
+
+ventus-proto = { path = "../ventus-proto" }

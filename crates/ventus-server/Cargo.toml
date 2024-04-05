@@ -1,0 +1,21 @@
+[package]
+name = "ventus-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow.workspace = true
+axum.workspace = true
+rmp.workspace = true
+rmp-serde.workspace = true
+tokio.workspace = true
+serde.workspace = true
+wasmer.workspace = true
+wasmer-wasix.workspace = true
+http-body.workspace = true
+http-body-util.workspace = true
+pyroscope.workspace = true
+pyroscope_pprofrs.workspace = true
+tikv-jemallocator.workspace = true
+
+ventus-proto.path = "../ventus-proto"

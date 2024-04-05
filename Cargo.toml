@@ -1,0 +1,20 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/*"
+]
+
+[workspace.dependencies]
+anyhow = "1.0.81"
+axum = "0.7.5"
+rmp = "0.8.12"
+rmp-serde = "1.1.2"
+tokio = { version = "1.37.0", features = ["full"] }
+serde = { version = "1.0.197", features = ["derive"] }
+wasmer = { version = "4.2.6" }
+wasmer-wasix = "0.18.1"
+http-body = "1.0.0"
+http-body-util = "0.1.1"
+pyroscope = "0.5.4"
+pyroscope_pprofrs = "0.2"
+tikv-jemallocator = { version = "0.5" }

@@ -1,0 +1,4 @@
+/target
+
+# Cached wasmer file
+*.so

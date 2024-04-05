@@ -1,0 +1,2 @@
+#!/bin/sh
+docker run --add-host=host.docker.internal:host-gateway --volume $PWD:/app -w /app --rm grafana/k6 $*
