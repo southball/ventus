@@ -849,13 +849,55 @@ impl WasiEnvBuilder {
                 for journal in self.journals.clone() {
                     runtime.add_journal(journal);
                 }
-                struct DropLogger<T>{
+                #[derive(Debug)]
+                                struct DropLogger<T>{
                     inner: T,
                 }
                 impl<T> Drop for DropLogger<T> {
                     fn drop(&mut self) {
-                        tracing::info!("Dropping runtime");
+                        // panic!("A runtime is dropped");
                     }
+                }
+                impl<T:Runtime> Runtime for DropLogger<T>{
+                    fn active_journal(&self) -> Option<&'_ DynJournal> {
+                        self.inner.active_journal()
+                    }
+                    fn engine(&self) -> wasmer::Engine {
+                        self.inner.engine()
+                    }
+                    fn http_client(&self) -> Option<&crate::http::DynHttpClient> {
+                        self.inner.http_client()
+                    }
+                    fn journals(&self) -> &'_ Vec<Arc<DynJournal>> {
+                        self.inner.journals()
+                    }
+                    fn load_module<'a>(&'a self, wasm: &'a [u8]) -> futures::prelude::future::BoxFuture<'a, anyhow::Result<Module>> {
+                        self.inner.load_module(wasm)
+                    }
+                    fn load_module_sync(&self, wasm: &[u8]) -> Result<Module, anyhow::Error> {
+                        self.inner.load_module_sync(wasm)
+                    }
+fn module_cache(&self) -> Arc<dyn crate::runtime::module_cache::ModuleCache + Send + Sync> {
+    self.inner.module_cache()
+}
+fn networking(&self) -> &virtual_net::DynVirtualNetworking {
+    self.inner.networking()
+}
+fn new_store(&self) -> wasmer::Store {
+    self.inner.new_store()
+}
+fn package_loader(&self) -> Arc<dyn crate::runtime::package_loader::PackageLoader + Send + Sync> {
+    self.inner.package_loader()
+}
+fn source(&self) -> Arc<dyn crate::runtime::resolver::Source + Send + Sync> {
+    self.inner.source()
+}
+fn task_manager(&self) -> &Arc<dyn crate::VirtualTaskManager> {
+    self.inner.task_manager()
+}
+fn tty(&self) -> Option<&(dyn crate::os::TtyBridge + Send + Sync)> {
+    self.inner.tty()
+}
                 }
                 Arc::new(DropLogger{inner:runtime})
             }
