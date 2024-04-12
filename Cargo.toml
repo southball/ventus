@@ -13,8 +13,20 @@ tokio = { version = "1.37.0", features = ["full"] }
 serde = { version = "1.0.197", features = ["derive"] }
 wasmer = { version = "4.2.6" }
 wasmer-wasix = "0.18.1"
+wasmer-compiler-llvm = { version = "4.2.6" }
 http-body = "1.0.0"
 http-body-util = "0.1.1"
 pyroscope = "0.5.4"
 pyroscope_pprofrs = "0.2"
-tikv-jemallocator = { version = "0.5" }
+tracing = "0.1"
+tracing-subscriber = "0.3"
+no_debug = "3.1.0"
+tracing-opentelemetry = "0.23"
+opentelemetry = "0.22"
+opentelemetry_sdk = { version = "0.22", features = ["rt-tokio"] }
+opentelemetry-otlp = { version = "0.15", features = ["trace", "grpc-tonic"] }
+
+[patch.crates-io]
+wasmer = { path = "./wasmer-4.2.6" }
+wasmer-vm = { path = "./wasmer-vm-4.2.6" }
+wasmer-wasix = { path = "./wasmer-wasix-0.18.1" }

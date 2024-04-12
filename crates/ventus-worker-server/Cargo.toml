@@ -1,0 +1,28 @@
+[package]
+name = "ventus-worker-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow.workspace = true
+axum.workspace = true
+rmp.workspace = true
+rmp-serde.workspace = true
+tokio.workspace = true
+serde.workspace = true
+wasmer.workspace = true
+wasmer-wasix.workspace = true
+http-body.workspace = true
+http-body-util.workspace = true
+pyroscope.workspace = true
+pyroscope_pprofrs.workspace = true
+wasmer-compiler-llvm.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+no_debug.workspace = true
+tracing-opentelemetry.workspace = true
+opentelemetry.workspace = true
+opentelemetry_sdk.workspace = true
+opentelemetry-otlp.workspace = true
+
+ventus-proto.path = "../ventus-proto"

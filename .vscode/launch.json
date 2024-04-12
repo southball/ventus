@@ -1,0 +1,138 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'ventus-benchmark-comparison'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=ventus-benchmark-comparison",
+                    "--package=ventus-benchmark-comparison"
+                ],
+                "filter": {
+                    "name": "ventus-benchmark-comparison",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'ventus-benchmark-comparison'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=ventus-benchmark-comparison",
+                    "--package=ventus-benchmark-comparison"
+                ],
+                "filter": {
+                    "name": "ventus-benchmark-comparison",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'ventus-example-function'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=ventus-example-function",
+                    "--package=ventus-example-function"
+                ],
+                "filter": {
+                    "name": "ventus-example-function",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'ventus-example-function'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=ventus-example-function",
+                    "--package=ventus-example-function"
+                ],
+                "filter": {
+                    "name": "ventus-example-function",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'ventus-proto'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=ventus-proto"
+                ],
+                "filter": {
+                    "name": "ventus-proto",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'ventus-server'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=ventus-server",
+                    "--package=ventus-server"
+                ],
+                "filter": {
+                    "name": "ventus-server",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'ventus-server'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=ventus-server",
+                    "--package=ventus-server"
+                ],
+                "filter": {
+                    "name": "ventus-server",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
