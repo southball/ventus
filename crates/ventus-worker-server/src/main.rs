@@ -30,45 +30,13 @@ async fn root(program: axum::Extension<Program2>, body: axum::body::Bytes) -> im
     // let module = unsafe { wasmer::Module::deserialize(&store, program.0 .0.as_ref()) }.unwrap();
     let module = Module::clone(&program.0 .0);
 
-    let (mut stdin_tx, stdin_rx) = wasmer_wasix::Pipe::channel();
-    let (stdout_tx, mut stdout_rx) = wasmer_wasix::Pipe::channel();
-
-    let request = ventus_proto::VentusRequest {
-        body: body.into(),
-        method: "GET".to_string(),
-        uri: "/".to_string(),
-        headers: Default::default(),
-    };
-
-    stdin_tx
-        .write(rmp_serde::to_vec(&request).unwrap().as_slice())
-        .await
-        .unwrap();
-
     let mut wasi_env = WasiEnv::builder("ventus-example-function")
-        .stdin(Box::new(stdin_rx))
-        .stdout(Box::new(stdout_tx))
+        // .stdin(Box::new(stdin_rx))
+        // .stdout(Box::new(stdout_tx))
         .finalize(&mut store)
         .unwrap();
 
-    let import_object = wasi_env.import_object(&mut store, &module).unwrap();
-    let instance = Instance::new(&mut store, &module, &import_object).unwrap();
-
-    // if let Err(e) = wasi_env.initialize(&mut store, instance.clone()) {
-    //     eprintln!("Error initializing WASI: {:?}", e);
-    // }
-
-    // let start = instance.exports.get_function("_start").unwrap();
-    // if let Err(e) = start.call(&mut store, &[]) {
-    //     eprintln!("Error calling start function: {:?}", e);
-    // }
-
-    // wasi_env.on_exit(&mut store, None);
-
-    // let mut buf = Vec::<u8>::new();
-    // stdout_rx.read_to_end(&mut buf).await.unwrap();
-
-    // let response: VentusResponse = rmp_serde::from_slice(&buf).unwrap();
+    wasi_env.on_exit(&mut store, None);
 
     axum::response::Response::builder()
         // .status(response.status_code)
@@ -110,12 +78,6 @@ async fn main() -> anyhow::Result<()> {
         .layer(axum::Extension(Program2(Arc::new(module))));
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await?;
-
-    // tokio::spawn(async move {
-    //     // sleep for 5 seconds and quit the program
-    //     tokio::time::sleep(std::time::Duration::from_secs(5)).await;
-    //     std::process::exit(0);
-    // });
 
     axum::serve(listener, app).await.map_err(|e| e.into())
 }
